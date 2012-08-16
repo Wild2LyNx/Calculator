@@ -14,24 +14,41 @@ public class CalculatorImpl implements Calculator {
 	 */
 	@Override
 	public String evaluate(String statement) {
-		/*
-		 * @param result The result of calculation
-		 * @param polish_record The polish record of input statement.
-		 */
+		/** The result of calculation */
 		String result = new String();
 		Interpretator interpretator = new Interpretator();
+
+		/** The polish record of input statement */
 		Vector<String> polish_record = interpretator
 				.getPolishInterpret(statement);
+
+		/** If input statement were incorrect, polish record will be null */
 		if (polish_record == null)
 			return null;
 		result = calculate(polish_record);
 		return result;
 	}
 
+	/**
+	 * Calculates input statement presented in the form of the polish record.
+	 * This method sequentially reads the symbols of the record, executing one
+	 * command for each symbol. If the symbol is a number, it pushed on the
+	 * stack; if operation - execute this operation on numbers from the stack
+	 * and push the result instead.
+	 * 
+	 * @param polish_record
+	 *            Input statement presented in the form of the polish record
+	 * @return result of calculation in the String form
+	 */
 	private String calculate(Vector<String> polish_record) {
+
+		/** The stack for numbers */
 		Stack<Double> calculations = new Stack<Double>();
+
 		for (int i = 0; i < polish_record.size(); i++) {
+			/** The symbol under consideration */
 			String cur_symbol = polish_record.get(i);
+
 			if (cur_symbol.equals("+")) {
 				if (calculations.size() > 1) {
 					double value1 = calculations.pop();
@@ -73,6 +90,7 @@ public class CalculatorImpl implements Calculator {
 				}
 			}
 		}
+		/** Output the result after reach the end of record*/
 		if (calculations.size() == 1) {
 			double result = calculations.pop();
 			StringBuilder sb = new StringBuilder();
