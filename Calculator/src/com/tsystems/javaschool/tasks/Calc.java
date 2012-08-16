@@ -14,7 +14,7 @@ public class Calc {
 	public static void main(String[] args) {
 
 		/**
-		 * Here we can see some examples.
+		 * Here we can see some test examples.
 		 * 
 		 * @param inStatement
 		 *            [1..3] mathematical statement containing digits, '.' (dot)

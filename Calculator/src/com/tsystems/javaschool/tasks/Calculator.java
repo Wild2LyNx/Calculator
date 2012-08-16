@@ -15,7 +15,7 @@ public interface Calculator {
      *                  parentheses, operations signs '+', '-', '*', '/'<br>
      *                  Example: <code>(1 + 38) * 4.5 - 1 / 2.</code>
      *
-     * @return string value containing result of evaluation or null if statement is invalid
+     * @return string value containing result of evaluation or null if statement is invalid.
      */
     String evaluate(String statement);
 

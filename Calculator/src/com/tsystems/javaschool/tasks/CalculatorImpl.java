@@ -14,11 +14,16 @@ public class CalculatorImpl implements Calculator {
 	 */
 	@Override
 	public String evaluate(String statement) {
+		/*
+		 * @param result The result of calculation
+		 * @param polish_record The polish record of input statement.
+		 */
 		String result = new String();
 		Interpretator interpretator = new Interpretator();
 		Vector<String> polish_record = interpretator
 				.getPolishInterpret(statement);
-		if (polish_record == null) return null;
+		if (polish_record == null)
+			return null;
 		result = calculate(polish_record);
 		return result;
 	}
@@ -68,11 +73,11 @@ public class CalculatorImpl implements Calculator {
 				}
 			}
 		}
-		if (calculations.size() == 1){
+		if (calculations.size() == 1) {
 			double result = calculations.pop();
 			StringBuilder sb = new StringBuilder();
 			sb.append(result);
-			String str_result = sb.toString(); 
+			String str_result = sb.toString();
 			return str_result;
 		}
 		return null;
