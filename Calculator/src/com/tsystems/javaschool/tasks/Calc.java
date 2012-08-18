@@ -1,7 +1,7 @@
 package com.tsystems.javaschool.tasks;
 
 /**
- * The main class of Calculator. The result of calculation will be output to the
+ * Testing of the Calculator. The result of calculation will be output to the
  * console. If the input statement is invalid, the result will be 'null'.
  */
 public class Calc {
@@ -14,7 +14,7 @@ public class Calc {
 	public static void main(String[] args) {
 
 		/**
-		 * Here we can see some test examples.
+		 * Here some test examples.
 		 * 
 		 * @param inStatement
 		 *            [1..3] mathematical statement containing digits, '.' (dot)

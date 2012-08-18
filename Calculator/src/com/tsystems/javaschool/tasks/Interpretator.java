@@ -33,8 +33,8 @@ public class Interpretator {
 	 * retrieve elements from the operation_stack until reception of ')'. Then
 	 * just throw out both '(' and ')'.
 	 * 
-	 * If all input string disassembled, and in the stack still signs of operation,
-	 * extract them from the stack to the output string.
+	 * If all input string disassembled, and in the stack still signs of
+	 * operation, extract them from the stack to the output string.
 	 * 
 	 * @param statement
 	 *            input statement, in standard form.
@@ -42,9 +42,11 @@ public class Interpretator {
 	 */
 	public Vector<String> getPolishInterpret(String statement) {
 
+		String prepared_statement = preprocess(statement);
+
 		/** Fragmentation of input statement into operations and operands */
-		StringTokenizer st = new StringTokenizer(statement + "#", "*/+-()#",
-				true);
+		StringTokenizer st = new StringTokenizer(prepared_statement + "#",
+				"*/+-()#", true);
 
 		Vector<String> polish_record = new Vector<String>();
 
@@ -92,7 +94,44 @@ public class Interpretator {
 		return polish_record;
 	}
 
-	/**Prioritization for all symbols*/
+	/**
+	 * Preprocessing of input statement to delete extra white spaces and handle
+	 * negative numbers case. It's necessary for correctness of the further
+	 * transformation into the polish record form.
+	 * 
+	 * If input statement contains negative numbers, which is enclosed in round
+	 * brackets, [for example (-42)], then it should be transformed into
+	 * mathematical expression [the same example: (0-42)].
+	 *
+	 * @param statement input statement
+	 * @return preprocessed statement without white spaces. 
+	 */
+	private String preprocess(String statement) {
+		StringTokenizer st = new StringTokenizer(statement, "*/+-()[ ]", true);
+		Vector<String> symbols = new Vector<String>();
+		while (st.hasMoreTokens()) {
+			symbols.add(st.nextToken());
+		}
+
+		if (symbols.firstElement().equals("-"))
+			symbols.set(0, "0".concat(symbols.firstElement()));
+
+		for (int i = 0; i < symbols.size() - 1; i++) {
+			if (symbols.get(i).equals(" ")) {
+				symbols.remove(i);
+				i--;
+			}
+			if ((symbols.get(i).equals("("))
+					&& (symbols.get(i + 1).equals("-")))
+				symbols.set(i, symbols.get(i).concat("0"));
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < symbols.size(); i++)
+			sb.append(symbols.get(i));
+		return sb.toString();
+	}
+
+	/** Prioritization for all symbols */
 	private int getPriority(String cur_substr) {
 		int priority = 0;
 
