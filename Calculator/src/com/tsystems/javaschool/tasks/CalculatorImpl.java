@@ -1,5 +1,7 @@
 package com.tsystems.javaschool.tasks;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -90,11 +92,13 @@ public class CalculatorImpl implements Calculator {
 				}
 			}
 		}
-		/** Output the result after reach the end of record*/
+		/** Output the result after reach the end of record */
 		if (calculations.size() == 1) {
 			double result = calculations.pop();
+			double short_result = new BigDecimal(result).setScale(4,
+					RoundingMode.UP).doubleValue();
 			StringBuilder sb = new StringBuilder();
-			sb.append(result);
+			sb.append(short_result);
 			String str_result = sb.toString();
 			return str_result;
 		}
